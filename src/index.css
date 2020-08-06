@@ -53,14 +53,72 @@ a:hover a:active {
   box-shadow: 0 0 0 0.2rem var(--primary-color-transparent);
 }
 
-@media (max-width: 1024px) {
-  .firstcon {
-    padding: 2% 10% 2% 10%;
-  }
+/* Customize the label (the checkbtn) */
+.checkbtn {
+  display: inline-flex;
+  position: relative;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 13px;
+  -webkit-user-select: none;
+  user-select: none;
+  background: var(--primary-color);
+  border-radius: 10px;
 }
 
-.headerlogo {
-  height: 200px;
+/* Hide the browser's default checkbox */
+.checkbtn input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 5px;
+  width: 5px;
+}
+
+/* On mouse-over, add a grey background color */
+.checkbtn:hover input ~ .checkmark {
+  /* background-color: #ccc; */
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkbtn input:checked ~ .checkmark {
+  /* background-color: var(--primary-color); */
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkbtn input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkbtn .checkmark:after {
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid #000;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 .takequizbtn {

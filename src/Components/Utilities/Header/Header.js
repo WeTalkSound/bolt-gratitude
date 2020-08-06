@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <div className="firstcon text-center justify-content-center">
       <Link to="/">
-        <img src={ logo } alt="Bolt Protect" style={{ height: "200px" }} className="headerlogo mx-auto d-flex img-fluid" />
+        <img src={ logo } alt="Bolt Protect" style={{ maxHeight: "40px" }} className="headerlogo mx-auto d-flex img-fluid" />
       </Link>
     </div>
   )

@@ -2,19 +2,20 @@ import React from 'react'
 import './Button.css'
 import { Link } from "react-router-dom"
 
-export default function Button({ type, linkTo, onClick, href, ...props }) {
+export default function Button({ type=undefined, linkTo=undefined, onClick=undefined, href=undefined, ...props }) {
+  type = type ?? 'primary'
   let RenderedButton = null
   switch (true) {
     case linkTo !== undefined:
       RenderedButton = (
-        <Link className="btn btn-primary" to={linkTo} {...props}>
+        <Link className={`btn btn-${type}`} to={linkTo} {...props}>
           {props.children}
         </Link>
       )
       break;
     case href !== undefined:
       RenderedButton = (
-        <a className="btn btn-primary" target="_blank" rel="noopener noreferrer" href={href} {...props}>
+        <a className={`btn btn-${type}`} target="_blank" rel="noopener noreferrer" href={href} {...props}>
           {props.children}
         </a>
       )
@@ -22,7 +23,7 @@ export default function Button({ type, linkTo, onClick, href, ...props }) {
   
     default:
       RenderedButton = (
-        <button className="btn btn-primary" onClick={onClick} {...props}>
+        <button className={`btn btn-${type}`} onClick={onClick} {...props}>
           {props.children}
         </button>
       )
