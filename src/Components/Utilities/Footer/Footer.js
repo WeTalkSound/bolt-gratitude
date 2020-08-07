@@ -6,7 +6,7 @@ import homeImage from './home-image.png'
 export default function Footer() {
   return (
     <>
-    <img src={homeImage} style={{maxHeight:"100px"}} alt="" className="homeimage img-fluid mx-auto d-flex" />
+    <img src={homeImage} alt="" className="homeimage img-fluid mx-auto d-flex" />
     <footer className="footer fixed-bottom">
       <div className="">
         <h5 className="footertext font-weight-bold">#GratefulForEveryMile</h5>

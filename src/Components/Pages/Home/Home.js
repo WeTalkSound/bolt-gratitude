@@ -10,7 +10,7 @@ export default function Home() {
   const onUpload = e => {
     const files = Array.from(e.target.files)
     if (files[0].size > 16000000) {
-      // this.setState({ error: "File size too large!" })
+      setError("File size too large!")
       return
     }
     setImage(URL.createObjectURL(files[0]))
@@ -46,8 +46,7 @@ export default function Home() {
   const GratitudeSelector = () => (
     <>
       <div className="form-group">
-        <label htmlFor="formControlRange">On a scale of 1-10, slide to determine your gratitude</label>
-        <input type="range" className="custom-range" id="formControlRange" />
+        
         <label className="checkbtn">Life &amp; Health
           <input type="checkbox"  />
           <span className="checkmark"></span>
@@ -60,6 +59,8 @@ export default function Home() {
           <input type="checkbox"  />
           <span className="checkmark"></span>
         </label>
+      </div>
+      <div className="form-group">
         <label className="checkbtn">Career
           <input type="checkbox"  />
           <span className="checkmark"></span>
@@ -77,9 +78,26 @@ export default function Home() {
           <span className="checkmark"></span>
         </label>
       </div>
+      <div className="form-group">
+        <label htmlFor="formControlRange">Slide to show your gratitude</label>
+        <input type="range" step="1" min="0" max="10"  className="custom-range" id="formControlRange" />
+        <div className="row range-indicators">
+          <div style={{textAlign:"left"}} className="col">0</div>
+          <div className="col">1</div>
+          <div className="col">2</div>
+          <div className="col">3</div>
+          <div className="col">4</div>
+          <div className="col">5</div>
+          <div className="col">6</div>
+          <div className="col">7</div>
+          <div className="col">8</div>
+          <div className="col">9</div>
+          <div style={{textAlign:"right"}} className="col">10</div>
+        </div>
+      </div>
       <div className="col-12 mb-3 text-center">
-        <img className="img-fluid" src={image} alt="Your Gratitude" />
-        <Button type="outline-primary" >
+        {/* <img className="img-fluid" src={image} alt="Your Gratitude" /> */}
+        <Button type="primary" >
           <label className="m-0" htmlFor='single-image'>
             UPLOAD IMAGE
           </label>
@@ -87,9 +105,6 @@ export default function Home() {
         <input style={{display: "none", opacity: 0}} type='file' id='single-image' onChange={onUpload} /> 
       </div>
       <p>{error}</p>
-      <div className="col-12 text-center">
-        <Button onClick={submit}>GENERATE RESULTS</Button>
-      </div>
     </>
   )
 

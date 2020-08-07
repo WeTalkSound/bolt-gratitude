@@ -2,6 +2,8 @@
   --primary-font: 'Open Sans', sans-serif;
   --secondary-font: 'Poppins', sans-serif;
   --primary-color: #5fd387;
+  --primary-light: #a9d9bf;
+  --primary-dark: #1d915c;
   --primary-color-transparent: rgba(95, 211, 135, .25);
   --secondary-color: #ffffff;
   --danger: #ff0062;
@@ -53,19 +55,24 @@ a:hover a:active {
   box-shadow: 0 0 0 0.2rem var(--primary-color-transparent);
 }
 
+.form-group {
+  margin: 0;
+}
+
 /* Customize the label (the checkbtn) */
 .checkbtn {
   display: inline-flex;
   position: relative;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 7px 15px;
   margin-bottom: 12px;
+  margin-right: 15px;
   cursor: pointer;
-  font-size: 13px;
+  font-size: 10px;
+  font-weight: 700;
   -webkit-user-select: none;
   user-select: none;
   background: var(--primary-color);
-  border-radius: 10px;
+  border-radius: 30px;
 }
 
 /* Hide the browser's default checkbox */
@@ -121,6 +128,15 @@ a:hover a:active {
   transform: rotate(45deg);
 }
 
+.range-indicators {
+  margin: 0;
+}
+
+.range-indicators .col {
+  margin: 0;
+  padding: 0;
+}
+
 .takequizbtn {
   width: 310px;
 }
@@ -173,7 +189,7 @@ li {
   margin-bottom: 0;
   position: fixed;
   color: black;
-  background-color: white;
+  background-color: var(--primary-light);
   padding: 20px 0;
 }
 
@@ -189,6 +205,14 @@ li {
   margin-left: 5%;
 }
 
+img.homeimage.img-fluid.mx-auto.d-flex {
+  position: fixed;
+  bottom: 70px;
+  margin: 0 auto;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 @media (max-width: 767px) {
   body {
     background-repeat: no-repeat;
@@ -202,6 +226,15 @@ li {
     color: black;
     background-color: #34d186;
     padding: 5% 0;
+  }
+
+  img.homeimage.img-fluid.mx-auto.d-flex {
+    max-height: 100px;
+    position: fixed;
+    bottom: 85px;
+    margin: 0 auto;
+    left: 50%;
+    transform: translateX(-50%);
   }
   
   .footerbtns {
