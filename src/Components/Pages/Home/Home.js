@@ -99,7 +99,7 @@ export default function Home() {
   }
 
   const GratitudeSelector = () => (
-    <>
+    <div  className="animate__animated animate__flipInX">
       <h1 className="font-weight-bold">What are you most grateful for?</h1>
       <div className="form-group">
         
@@ -135,11 +135,11 @@ export default function Home() {
         </label>
       </div>
       <p>{error}</p>
-    </>
+    </div>
   )
 
   const GratitudeSlider = () => (
-    <>
+    <div className="animate__animated animate__flipInX">
       <h1>Slide to show your gratitude</h1>
       <div className="form-group">
         <input type="range" step="1" min="0" max="10" onChange={(e) => setStatus("IMAGE")}  className="custom-range" id="formControlRange" />
@@ -157,11 +157,11 @@ export default function Home() {
           <div style={{textAlign:"right"}} className="col">10</div>
         </div>
       </div>
-    </>
+    </div>
   )
 
   const GratitudeImageUpload = () => (
-    <>
+    <div className="animate__animated animate__flipInX">
       <h1>Upload Your Image!</h1>
       <div className="col-12 mb-3 text-center">
         {/* <img className="img-fluid" src={image} alt="Your Gratitude" /> */}
@@ -172,16 +172,16 @@ export default function Home() {
         </Button>
         <input style={{display: "none", opacity: 0}} type='file' id='single-image' onChange={onUpload} /> 
       </div>
-    </>
+    </div>
   )
 
   const GratitudeDisplay = () => (
-    <>
+    <div className="animate__animated animate__flipInX">
       <h1>Share Your Image!</h1>
       <div className="col-12 mb-3 text-center">
         <img className="img-fluid" style={{background: "black"}} src={image} alt="Your Gratitude" />
       </div>
-    </>
+    </div>
   )
 
   let content
@@ -200,7 +200,7 @@ export default function Home() {
       break;
     
     case "UPLOADING":
-      content = <h2>Loading, Please Wait...</h2>
+      content = <h2 className="animate__animated animate__flipInX">Loading, Please Wait...</h2>
       break;
 
     case "LOADED":
