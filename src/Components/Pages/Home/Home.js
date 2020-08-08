@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useLayoutEffect } from 'react'
 import Button from '../../Utilities/Button/Button'
 
 export default function Home() {
@@ -6,18 +6,13 @@ export default function Home() {
   const [ error,setError ] = useState("")
   const [ image,setImage ] = useState("")
   const [ file,setFile ] = useState("")
-
-  const onUpload = e => {
-    const files = Array.from(e.target.files)
-    if (files[0].size > 16000000) {
-      setError("File size too large!")
-      return
-    }
-    setImage(URL.createObjectURL(files[0]))
-    setFile(files[0])
-  }
+  const [ gratitude,setGratitude ] = useState("")
 
   const submit = () => {
+    if (!gratitude.length) {
+      setError("Please select something you're grateful for.")
+      return
+    }
     if (!file) {
       setError("Please upload an image.")
       return
@@ -29,7 +24,7 @@ export default function Home() {
 
     console.log(formData, formData.toString())
 
-    fetch(`https://services.etin.space/bolt-campaign/api/gratitude/image-processor.php`, {
+    fetch(`https://services.etin.space/bolt-campaign/api/gratitude/?gratefulFor=${gratitude}`, {
       method: 'POST',
       body: formData
     })
@@ -43,38 +38,56 @@ export default function Home() {
       })
   }
 
+  useLayoutEffect(submit, [file])
+
+  const onUpload = e => {
+    const files = Array.from(e.target.files)
+    if (files[0].size > 16000000) {
+      setError("File size too large!")
+      return
+    }
+    setImage(URL.createObjectURL(files[0]))
+    setFile(files[0])
+  }
+
+  const btnChecked = (e) => {
+    if(e.target.checked) {
+      setGratitude(e.target.name)
+    }
+  }
+
   const GratitudeSelector = () => (
     <>
       <div className="form-group">
         
         <label className="checkbtn">Life &amp; Health
-          <input type="checkbox"  />
+          <input type="checkbox" name="Life" onChange={btnChecked}  />
           <span className="checkmark"></span>
         </label>
         <label className="checkbtn">Funds
-          <input type="checkbox"  />
+          <input type="checkbox" name="Funds" onChange={btnChecked}  />
           <span className="checkmark"></span>
         </label>
         <label className="checkbtn">Family &amp; Friends
-          <input type="checkbox"  />
+          <input type="checkbox" name="Family" onChange={btnChecked}  />
           <span className="checkmark"></span>
         </label>
       </div>
       <div className="form-group">
         <label className="checkbtn">Career
-          <input type="checkbox"  />
+          <input type="checkbox" name="Career" onChange={btnChecked}  />
           <span className="checkmark"></span>
         </label>
         <label className="checkbtn">Growth
-          <input type="checkbox"  />
+          <input type="checkbox" name="Growth" onChange={btnChecked}  />
           <span className="checkmark"></span>
         </label>
         <label className="checkbtn">Uche from Bolt
-          <input type="checkbox"  />
+          <input type="checkbox" name="Uche" onChange={btnChecked}  />
           <span className="checkmark"></span>
         </label>
         <label className="checkbtn">Good Looks
-          <input type="checkbox"  />
+          <input type="checkbox" name="Good" onChange={btnChecked}  />
           <span className="checkmark"></span>
         </label>
       </div>
@@ -111,7 +124,7 @@ export default function Home() {
   const GratitudeDisplay = () => (
     <>
       <div className="col-12 mb-3 text-center">
-        <img className="img-fluid" src={image} alt="Your Gratitude" />
+        <img className="img-fluid" style={{background: "black"}} src={image} alt="Your Gratitude" />
       </div>
     </>
   )
@@ -138,7 +151,7 @@ export default function Home() {
   return (
     <>
       <div className="col-12 justify-content-center">
-        <div className="firstcon text-center justify-content-center">
+        <div className="text-center justify-content-center">
           <h1 className="font-weight-bold">What are you most grateful for?</h1>
           {content}
         </div>
