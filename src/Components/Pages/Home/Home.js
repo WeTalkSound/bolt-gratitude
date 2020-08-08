@@ -63,9 +63,9 @@ export default function Home() {
             }
           }
           else {
-            if (width > max_size) {
-              height *= max_size / width
-              width = max_size
+            if (height > max_size) {
+              width *= max_size / height
+              height = max_size
             }
           }
           canvas.width = width
@@ -94,11 +94,13 @@ export default function Home() {
   const btnChecked = (e) => {
     if(e.target.checked) {
       setGratitude(e.target.name)
+      setStatus("SLIDER")
     }
   }
 
   const GratitudeSelector = () => (
     <>
+      <h1 className="font-weight-bold">What are you most grateful for?</h1>
       <div className="form-group">
         
         <label className="checkbtn">Life &amp; Health
@@ -132,9 +134,15 @@ export default function Home() {
           <span className="checkmark"></span>
         </label>
       </div>
+      <p>{error}</p>
+    </>
+  )
+
+  const GratitudeSlider = () => (
+    <>
+      <h1>Slide to show your gratitude</h1>
       <div className="form-group">
-        <label htmlFor="formControlRange">Slide to show your gratitude</label>
-        <input type="range" step="1" min="0" max="10"  className="custom-range" id="formControlRange" />
+        <input type="range" step="1" min="0" max="10" onChange={(e) => setStatus("IMAGE")}  className="custom-range" id="formControlRange" />
         <div className="row range-indicators">
           <div style={{textAlign:"left"}} className="col">0</div>
           <div className="col">1</div>
@@ -149,6 +157,12 @@ export default function Home() {
           <div style={{textAlign:"right"}} className="col">10</div>
         </div>
       </div>
+    </>
+  )
+
+  const GratitudeImageUpload = () => (
+    <>
+      <h1>Upload Your Image!</h1>
       <div className="col-12 mb-3 text-center">
         {/* <img className="img-fluid" src={image} alt="Your Gratitude" /> */}
         <Button type="primary" >
@@ -158,12 +172,12 @@ export default function Home() {
         </Button>
         <input style={{display: "none", opacity: 0}} type='file' id='single-image' onChange={onUpload} /> 
       </div>
-      <p>{error}</p>
     </>
   )
 
   const GratitudeDisplay = () => (
     <>
+      <h1>Share Your Image!</h1>
       <div className="col-12 mb-3 text-center">
         <img className="img-fluid" style={{background: "black"}} src={image} alt="Your Gratitude" />
       </div>
@@ -175,6 +189,14 @@ export default function Home() {
   switch (status) {
     case "INITIAL":
       content = <GratitudeSelector />
+      break;
+    
+    case "SLIDER":
+      content = <GratitudeSlider />
+      break;
+    
+    case "IMAGE":
+      content = <GratitudeImageUpload />
       break;
     
     case "UPLOADING":
@@ -193,7 +215,6 @@ export default function Home() {
     <>
       <div className="col-12 justify-content-center">
         <div className="text-center justify-content-center">
-          <h1 className="font-weight-bold">What are you most grateful for?</h1>
           {content}
         </div>
       </div>

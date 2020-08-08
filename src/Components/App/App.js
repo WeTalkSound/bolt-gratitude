@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Header />
-        <div className="container">
+        <div className="container d-flex justify-content-center align-items-center" style={{height: "calc(100vh - 150px)"}}>
           <div className="row">
             <Switch>
               <Route exact path="/" component={ Home } />
