@@ -207,7 +207,7 @@ li {
 
 img.homeimage.img-fluid.mx-auto.d-flex {
   position: fixed;
-  bottom: 70px;
+  bottom: 30px;
   margin: 0 auto;
   left: 50%;
   transform: translateX(-50%);
