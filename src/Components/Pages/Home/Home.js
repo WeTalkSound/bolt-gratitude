@@ -5,10 +5,11 @@ export default function Home() {
   const [ status,setStatus ] = useState("INITIAL")
   const [ error,setError ] = useState("")
   const [ image,setImage ] = useState("")
-  const [ file,setFile ] = useState("")
+  const [ file,setFile ] = useState(new Blob())
   const [ gratitude,setGratitude ] = useState("")
 
   const submit = () => {
+    console.log("File triggered")
     if (!gratitude.length) {
       setError("Please select something you're grateful for.")
       return
@@ -41,13 +42,53 @@ export default function Home() {
   useLayoutEffect(submit, [file])
 
   const onUpload = e => {
-    const files = Array.from(e.target.files)
-    if (files[0].size > 16000000) {
-      setError("File size too large!")
+    const file = Array.from(e.target.files)[0]
+
+    console.log(file.type.match(/image.*/))
+
+    if( file.type.match(/image.*/) ) {
+      let reader = new FileReader()
+      reader.onload = readerEvent => {
+        let image = new Image()
+        image.onload = imageEvent => {
+          let 
+            canvas = document.createElement('canvas'), 
+            max_size = 1024,
+            width = image.width,
+            height = image.height
+          if (width > height) {
+            if (width > max_size) {
+              height *= max_size / width
+              width = max_size
+            }
+          }
+          else {
+            if (width > max_size) {
+              height *= max_size / width
+              width = max_size
+            }
+          }
+          canvas.width = width
+          canvas.height = height
+          canvas.getContext('2d').drawImage(image, 0, 0, width, height)
+
+          console.log("Before To Blob")
+          console.log(canvas)
+          canvas.toBlob(blob => {
+            console.log("To Blob")
+            console.log(blob)
+            setImage(URL.createObjectURL(blob))
+            setFile(blob)
+          })
+        }
+        image.src = readerEvent.target.result;
+      }
+      reader.readAsDataURL(file);
+    }
+    else {
+      setError("Please upload an image.")
       return
     }
-    setImage(URL.createObjectURL(files[0]))
-    setFile(files[0])
   }
 
   const btnChecked = (e) => {
