@@ -142,7 +142,7 @@ export default function Home() {
     <div className="animate__animated animate__flipInX">
       <h1>Slide to show your gratitude</h1>
       <div className="form-group">
-        <input type="range" step="1" min="0" max="10" onChange={(e) => setStatus("IMAGE")}  className="custom-range" id="formControlRange" />
+        <input type="range" step="1" min="0" max="10" className="custom-range" id="formControlRange" />
         <div className="row range-indicators">
           <div style={{textAlign:"left"}} className="col">0</div>
           <div className="col">1</div>
@@ -156,6 +156,7 @@ export default function Home() {
           <div className="col">9</div>
           <div style={{textAlign:"right"}} className="col">10</div>
         </div>
+        <button className="btn btn-primary" onClick={(e) => setStatus("IMAGE")}>Let's Go!</button>
       </div>
     </div>
   )
