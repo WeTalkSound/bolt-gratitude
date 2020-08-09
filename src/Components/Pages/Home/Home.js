@@ -142,7 +142,7 @@ export default function Home() {
     <div className="animate__animated animate__flipInX">
       <h1>Slide to show your gratitude</h1>
       <div className="form-group">
-        <input type="range" step="1" min="0" max="10" className="custom-range" id="formControlRange" />
+        <input type="range" step="1" min="0" defaultValue="0" max="10" className="custom-range" id="formControlRange" />
         <div className="row range-indicators">
           <div style={{textAlign:"left"}} className="col">0</div>
           <div className="col">1</div>
@@ -180,7 +180,7 @@ export default function Home() {
     <div className="animate__animated animate__flipInX">
       <h1>Share Your Image!</h1>
       <div className="col-12 mb-3 text-center">
-        <img className="img-fluid" style={{background: "black"}} src={image} alt="Your Gratitude" />
+        <img className="img-fluid" style={{background: "black", maxHeight: "200px"}} src={image} alt="Your Gratitude" />
       </div>
     </div>
   )
