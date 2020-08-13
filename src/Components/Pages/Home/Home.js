@@ -25,7 +25,9 @@ export default function Home() {
 
     console.log(formData, formData.toString())
 
-    fetch(`https://services.etin.space/bolt-campaign/api/gratitude/?gratefulFor=${gratitude}`, {
+    let [category, quoteIndex] = gratitude.split('&')
+
+    fetch(`https://services.etin.space/bolt-campaign/api/gratitude/?gratefulFor=${category}&quoteIndex=${quoteIndex}`, {
       method: 'POST',
       body: formData
     })
@@ -93,25 +95,167 @@ export default function Home() {
 
   const btnChecked = (e) => {
     if(e.target.checked) {
-      setGratitude(e.target.name)
-      setStatus("SLIDER")
+      let category = e.target.name
+      setGratitude(`${category}&${Math.floor(Math.random() * GratitudeQuotes[category].length)}`)
+      setStatus("IMAGE")
     }
   }
+
+  const GratitudeQuotes = {
+      "Life": [
+          "Thankful to Not have COVID",
+          "Thankful to Be alive",
+          "Thankful for The gift of a new day",
+          "Thankful for Birthdays",
+          "Grateful to Not have to go to the clinic",
+          "Grateful for Paid healthcare",
+          "Thankful for Healthcare Workers",
+          "Thankful for Home Workouts",
+          "Thankful for Face Masks",
+          "Grateful for The Chance To Slow Down",
+          "Grateful for Early Morning Walks",
+          "Grateful for A Safe Home",
+          "Thankful for Life and Hope",
+          "Grateful for Good Weather",
+          "Thankful for Health",
+          "Grateful for Reasons to Smile",
+          "Grateful for Restful Sleep" 
+      ],
+      "Funds": [
+          "Thankful that I can take care of family",
+          "Happy that I can afford my cravings",
+          "Happy that I can sponsor my lifestyle",
+          "Grateful that I can help people in need",
+          "Thankful that Santorini is in my future",
+          "Thankful for The stamps in my passport",
+          "Grateful to Have Money Saved Up",
+          "Grateful that My Money Grows Like grass",
+          "Thankful that The Grass Is Green On My Side",
+          "Grateful that Money Stops Nonsense",
+          "Grateful for Fat Wallets",
+          "Grateful to Not Have To Look At The Price Tag",
+          "Grateful to Be Able To Spend and Save",
+          "Grateful for Debit Cards That Work Like Black Cards",
+          "Thankful for Online Giveaways"
+      ],
+      "Family": [
+          "Grateful for My Support System",
+          "Grateful that I'm My Best Friend’s Best Friend!",
+          "Happy that I Can Text My Friend At Midnight With Gossip",
+          "Thankful for A Roof Over My Head",
+          "Happy for Gossip Partners",
+          "Happy that My Friends Are No Longer Choosing Toxic People",
+          "Grateful for Selfie Partners",
+          "Thankful for Great Memories",
+          "Grateful for The Absence of Entanglements",
+          "Thankful to Have People To Say “I love you” To",
+          "Grateful for The Family I Got To Choose",
+          "Grateful for Day One’s and the New One’s",
+          "Thankful for People To Lean On",
+          "Thankful for Family Bonding Time",
+          "Thankful for Supportive Friends",
+          "Grateful for the phone calls that end with “I love you”",
+          "Grateful for friendly banter",
+          "Grateful to be a listening ear to my friends and family",
+          "Happy that I can wake up to leftover meals",
+          "Grateful for people to listen to my rants",
+          "Thankful for breakfast in bed",
+          "Grateful for my crew",
+          "Grateful for friends that mind my business",
+          "Grateful to have someone to share my life with",
+          "Grateful for friends that tell me the truth",
+          "Thankful for family that check in on me",
+          "Thankful for laughter"
+      ],
+      "Career": [
+          "Grateful that I can do giveaways",
+          "Thankful for having a fighting spirit",
+          "Thankful for having a reason to get up in the mornings",
+          "Grateful to be an employer of labour",
+          "Thankful to still have my business",
+          "Grateful for promotions",
+          "Thankful for new opportunities",
+          "Thankful for end of month credit alerts",
+          "Grateful for credit alerts",
+          "Grateful for daily safe travels",
+          "Thankful for Fridays at the end of a hectic week",
+          "Grateful to be able to hear “How was your weekend?”",
+          "Grateful to be able to hand out business cards",
+          "Grateful for good colleagues",
+          "Thankful for competition that pushes me to be better",
+          "Happy to be able to pay my bills",
+          "Thankful that my bills and income are in the same weight class",
+          "Thankful to be booked and busy",
+          "Grateful for remote work",
+          "Grateful for people who believe in me",
+          "Thankful for career mentors"
+      ],
+      "Growth": [
+          "Grateful that I have a degree",
+          "Grateful for online classes",
+          "Thankful for new skill sets",
+          "Grateful for hobbies that turn into income",
+          "Grateful for self-help resources",
+          "Grateful to have started something new",
+          "Thankful for new opportunities ",
+          "Thankful for communities that push you to be better",
+          "Grateful that learning is never wasted",
+          "Thankful for experiences that teach",
+          "Thankful for resolutions that stick",
+          "Grateful for the teachers in my life",
+          "Grateful for mentors",
+          "Thankful for study groups",
+          "Grateful for new learnings"
+      ],
+      "Uche": [
+          "Thankful that Uche stays consistent",
+          "Thankful for the promo codes from Uche",
+          "Thankful for at least one person who respects text, don’t call",
+          "Grateful for emails from Uche",
+          "Thankful that Uche from Bolt never forgets me",
+          "Grateful for affordable rides",
+          "Grateful that Uche saves me money",
+          "Thankful for future promo codes",
+          "Thankful for five star drivers",
+          "Thankful for drivers that pass the aux",
+          "Grateful to be able to share my journeys with friends",
+          "Grateful for rides that are tracked",
+          "Thankful that Uche respects text, don’t call"
+      ],
+      "Good": [
+          "Grateful that I don’t need designer to look designer",
+          "Grateful for glowing skin",
+          "Thankful that I’m comfortable in my own skin",
+          "Grateful for looks that cannot be masked",
+          "Grateful for good looks",
+          "Grateful to be securing myself, because I’m the bag",
+          "Grateful for my drip",
+          "Grateful for more time to show off my style",
+          "Thankful that I slay with my looks",
+          "Excited to not need these filters",
+          "Grateful for filters",
+          "Thankful that “I woke up like this!”",
+          "Grateful for looks that turn heads",
+          "Grateful for a body that doesn’t quit",
+          "Grateful for my six pack",
+          "Thankful for eye brows on fleek"
+      ],
+    };
 
   const GratitudeSelector = () => (
     <div  className="animate__animated animate__flipInX">
       <h1 className="font-weight-bold">What are you most grateful for?</h1>
       <div className="form-group">
         
-        <label className="checkbtn">Life &amp; Health
+        <label className="checkbtn bg-primary-light">Life &amp; Health
           <input type="checkbox" name="Life" onChange={btnChecked}  />
           <span className="checkmark"></span>
         </label>
-        <label className="checkbtn">Funds
+        <label className="checkbtn bg-primary-light">Funds
           <input type="checkbox" name="Funds" onChange={btnChecked}  />
           <span className="checkmark"></span>
         </label>
-        <label className="checkbtn">Family &amp; Friends
+        <label className="checkbtn bg-primary-light">Family &amp; Friends
           <input type="checkbox" name="Family" onChange={btnChecked}  />
           <span className="checkmark"></span>
         </label>
@@ -157,13 +301,20 @@ export default function Home() {
           <div style={{textAlign:"right"}} className="col">10</div>
         </div>
         <button className="btn btn-primary" onClick={(e) => setStatus("IMAGE")}>Let's Go!</button>
+        <button className="btn btn-primary" onClick={(e) => setStatus("INITIAL")}>Back</button>
       </div>
     </div>
   )
 
-  const GratitudeImageUpload = () => (
+  const GratitudeImageUpload = () => {
+    let [category, quoteIndex] = gratitude.split('&')
+    return (
     <div className="animate__animated animate__flipInX">
-      <h1>Upload Your Image!</h1>
+      <h1>You are <span className="primary-text">{GratitudeQuotes[category][quoteIndex]}</span></h1>
+      <p>
+        Upload a picture to download your result. 
+        Share on your social media page for the chance to win a brand new iPhone 11
+      </p>
       <div className="col-12 mb-3 text-center">
         {/* <img className="img-fluid" src={image} alt="Your Gratitude" /> */}
         <Button type="primary" >
@@ -172,9 +323,11 @@ export default function Home() {
           </label>
         </Button>
         <input style={{display: "none", opacity: 0}} type='file' id='single-image' onChange={onUpload} /> 
+        <button className="btn btn-primary" onClick={(e) => setStatus("SLIDER")}>Back</button>
       </div>
     </div>
-  )
+    )
+  }
 
   const GratitudeDisplay = () => (
     <div className="animate__animated animate__flipInX">
@@ -182,6 +335,7 @@ export default function Home() {
       <div className="col-12 mb-3 text-center">
         <img className="img-fluid" style={{background: "black", maxHeight: "200px"}} src={image} alt="Your Gratitude" />
       </div>
+      <button className="btn btn-primary" onClick={(e) => setStatus("IMAGE")}>Back</button>
     </div>
   )
 

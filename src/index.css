@@ -75,6 +75,10 @@ a:hover a:active {
   border-radius: 30px;
 }
 
+.checkbtn.bg-primary-light {
+  background: var(--primary-light);
+}
+
 /* Hide the browser's default checkbox */
 .checkbtn input {
   position: absolute;
@@ -225,9 +229,9 @@ li {
   margin-left: 5%;
 }
 
-img.homeimage.img-fluid.mx-auto.d-flex {
+img.homeimage {
   position: fixed;
-  bottom: 30px;
+  bottom: 50px;
   margin: 0 auto;
   left: 50%;
   transform: translateX(-50%);
@@ -248,7 +252,7 @@ img.homeimage.img-fluid.mx-auto.d-flex {
     padding: 5% 0;
   }
 
-  img.homeimage.img-fluid.mx-auto.d-flex {
+  img.homeimage {
     max-height: 100px;
     position: fixed;
     bottom: 85px;
