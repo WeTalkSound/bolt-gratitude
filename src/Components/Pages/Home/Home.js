@@ -310,7 +310,7 @@ export default function Home() {
     let [category, quoteIndex] = gratitude.split('&')
     return (
     <div className="animate__animated animate__flipInX">
-      <h1>You are <span className="primary-text">{GratitudeQuotes[category][quoteIndex]}</span></h1>
+      <h1>You are <span className="primary-text">"{GratitudeQuotes[category][quoteIndex]}"</span></h1>
       <p>
         Upload a picture to download your result. 
         Share on your social media page for the chance to win a brand new iPhone 11
