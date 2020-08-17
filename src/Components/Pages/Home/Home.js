@@ -45,15 +45,42 @@ export default function Home() {
           let canvas = document.createElement('canvas')
           canvas.width = image.width
           canvas.height = image.height
-          canvas.getContext('2d').fill()
+
+          canvas.getContext('2d').fillRect(0, 0, image.width, image.height)
           canvas.getContext('2d').drawImage(image, 0, 0)
 
-          canvas.toBlob(blob => {
-            console.log("To Blob")
-            console.log(blob)
-            setImage(URL.createObjectURL(blob))
-            setStatus("LOADED")
-          })
+          let icon = new Image()
+          icon.src = "http://services.etin.space/bolt-campaign/api/gratitude/logo.php"
+          icon.crossOrigin = "anonymous"
+
+          icon.onload = () => {
+            let 
+              iconCanvas = document.createElement('canvas'), 
+              max_size = image.width > image.height ?  image.width * 0.1 : image.height * 0.1,
+              width = icon.width,
+              height = icon.height
+
+            if (width > max_size) {
+              height *= max_size / width
+              width = max_size
+            }
+
+            console.log(image.width, image.height, image.width * image.height, max_size)
+            
+            iconCanvas.width = width
+            iconCanvas.height = height
+            iconCanvas.getContext('2d').drawImage(icon, 0, 0, width, height)
+
+            canvas.getContext('2d').drawImage(iconCanvas, image.width/20, image.height - (image.height/20))
+            
+            canvas.toBlob(blob => {
+              console.log("To Blob")
+              console.log(blob)
+              setImage(URL.createObjectURL(blob))
+              setStatus("LOADED")
+            })
+          }
+
         }
       })
   }
