@@ -165,6 +165,13 @@ a:hover a:active {
   width: 310px;
 }
 
+.crop-container {
+  position: relative;
+  /* bottom: -81px; */
+  width: 100%;
+  min-height: 500px;
+}
+
 @media (max-width: 1024px) {
   .takequizbtn {
     width: 200px;

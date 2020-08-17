@@ -1,4 +1,5 @@
 import React, { useState, useLayoutEffect } from 'react'
+import Cropper from 'react-easy-crop'
 import Button from '../../Utilities/Button/Button'
 
 export default function Home() {
@@ -7,6 +8,9 @@ export default function Home() {
   const [ image,setImage ] = useState("")
   const [ file,setFile ] = useState(new Blob())
   const [ gratitude,setGratitude ] = useState("")
+  const [ crop, setCrop ] = useState({ x: 0, y: 0 })
+  const [ cropSetter, setCropSetter ] = useState(() => {return 1})
+  const [ croppedAreaPixels,setCroppedAreaPixels ] = useState({width: 0, height: 0, x: 0, y: 0})
 
   const submit = () => {
     console.log("File triggered")
@@ -118,12 +122,9 @@ export default function Home() {
           canvas.height = height
           canvas.getContext('2d').drawImage(image, 0, 0, width, height)
 
-          console.log("Before To Blob")
-          console.log(canvas)
           canvas.toBlob(blob => {
-            console.log("To Blob")
-            console.log(blob)
             setImage(URL.createObjectURL(blob))
+            // setStatus("CROP")
             setFile(blob)
           })
         }
@@ -143,6 +144,49 @@ export default function Home() {
       setGratitude(`${category}&${Math.floor(Math.random() * GratitudeQuotes[category].length)}`)
       setStatus("IMAGE")
     }
+  }
+
+  const onCropChange = (crop) => {
+    console.log("Change Crop!")
+    setCrop( crop )
+  }
+
+  const onCropComplete = (croppedArea, croppedAreaPixels) => {
+    console.log(croppedArea, croppedAreaPixels)
+    setCroppedAreaPixels( croppedAreaPixels )
+  }
+
+  const onZoomChange = (zoom) => {
+    this.setState({ zoom })
+  }
+
+  const showCroppedImage = () => {
+    let imageToCrop = new Image()
+    imageToCrop.src = image
+
+    const canvas = document.createElement('canvas')
+    canvas.width = croppedAreaPixels.width
+    canvas.height = croppedAreaPixels.height
+    canvas.getContext('2d').drawImage(
+      imageToCrop,
+      croppedAreaPixels.x,
+      croppedAreaPixels.y,
+      croppedAreaPixels.width,
+      croppedAreaPixels.height,
+      0,
+      0,
+      croppedAreaPixels.width,
+      croppedAreaPixels.height
+    )
+    
+    canvas.toBlob(blob => {
+      console.log("To Blob")
+      console.log(blob)
+      setFile(blob)
+      setStatus("LOADED")
+    })
+
+
   }
 
   const GratitudeQuotes = {
@@ -286,8 +330,29 @@ export default function Home() {
       ],
     };
 
+  const Layout = ({children, ...props}) => (
+    <div 
+      className={
+        `container ${props.middle ? 
+          "d-flex justify-content-center align-items-center" : ""}`
+      } 
+      style={
+        {
+          height: `${props.middle ?
+            "calc(100vh - 150px)" : "auto"}`
+        }
+      }
+    >
+      <div className="row">
+        <div  className="col-12 animate__animated animate__flipInX">
+          {children}
+        </div>
+      </div>
+    </div>        
+  ) 
+
   const GratitudeSelector = () => (
-    <div  className="animate__animated animate__flipInX">
+    <Layout middle>
       <h1 className="font-weight-bold">What are you most grateful for?</h1>
       <div className="form-group">
         
@@ -323,11 +388,11 @@ export default function Home() {
         </label>
       </div>
       <p>{error}</p>
-    </div>
+    </Layout>
   )
 
   const GratitudeSlider = () => (
-    <div className="animate__animated animate__flipInX">
+    <Layout middle>
       <h1>Slide to show your gratitude</h1>
       <div className="form-group">
         <input type="range" step="1" min="0" defaultValue="0" max="10" className="custom-range" id="formControlRange" />
@@ -347,16 +412,16 @@ export default function Home() {
         <button className="btn btn-primary" onClick={(e) => setStatus("IMAGE")}>Let's Go!</button>
         <button className="btn btn-primary" onClick={(e) => setStatus("INITIAL")}>Back</button>
       </div>
-    </div>
+    </Layout>
   )
 
   const GratitudeImageUpload = () => {
     let [category, quoteIndex] = gratitude.split('&')
     return (
-    <div className="animate__animated animate__flipInX">
+    <Layout middle>
       <h1>You are <span className="primary-text">"{GratitudeQuotes[category][quoteIndex]}"</span></h1>
       <p>
-        Upload a picture to download your result. 
+        Upload a picture to download your result. <br/>
         Share on your social media page for the chance to win a brand new iPhone 11
       </p>
       <div className="col-12 mb-3 text-center">
@@ -367,20 +432,44 @@ export default function Home() {
           </label>
         </Button>
         <input style={{display: "none", opacity: 0}} type='file' id='single-image' onChange={onUpload} /> 
-        <button className="btn btn-primary" onClick={(e) => setStatus("SLIDER")}>Back</button>
+        <button className="btn btn-primary" onClick={(e) => setStatus("INITIAL")}>Back</button>
       </div>
-    </div>
+    </Layout>
     )
   }
 
+  const GratitudeImageCrop = () => (
+    <Layout>
+      <div className="crop-container">
+        {/* <Cropper
+          image={image}
+          crop={crop}
+          // zoom={1}
+          aspect={1}
+          // restrictPosition={true}
+          // zoomWithScroll={false}
+          // onCropChange={setCrop}
+          onCropChange={cropSetter}
+          // onMediaLoaded={(x) => { setCropSetter(setCrop) }}
+          // onCropComplete={onCropComplete}
+          // onZoomChange={onZoomChange}
+        /> */}
+      </div>
+      <div className="col-12 mb-3 text-center">
+        {/* <button className="btn btn-primary" onClick={ showCroppedImage }>Crop</button> */}
+        <button className="btn btn-primary" onClick={(e) => setStatus("SLIDER")}>Back</button>
+      </div>
+    </Layout>
+  )
+
   const GratitudeDisplay = () => (
-    <div className="animate__animated animate__flipInX">
+    <Layout>
       <h1>Share Your Image!</h1>
       <div className="col-12 mb-3 text-center">
-        <img className="img-fluid" style={{background: "black", maxHeight: "200px"}} src={image} alt="Your Gratitude" />
+        <img className="img-fluid" src={image} alt="Your Gratitude" />
       </div>
       <button className="btn btn-primary" onClick={(e) => setStatus("IMAGE")}>Back</button>
-    </div>
+    </Layout>
   )
 
   let content
@@ -398,8 +487,18 @@ export default function Home() {
       content = <GratitudeImageUpload />
       break;
     
+    case "CROP":
+      content = <GratitudeImageCrop />
+      break;
+    
     case "UPLOADING":
-      content = <h2 className="animate__animated animate__flipInX">Loading, Please Wait...</h2>
+      content = (
+        <Layout middle>
+          <h2 className="animate__animated animate__flipInX">
+            Loading, Please Wait...
+          </h2>
+        </Layout>
+      )
       break;
 
     case "LOADED":
