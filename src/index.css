@@ -187,12 +187,6 @@ h1 {
   font-size: 24px;
 }
 
-@media (max-width: 1024px) {
-  h1 {
-    font-size: 16px;
-  }
-}
-
 p {
   font-size: 15px;
   padding-top: 1%;

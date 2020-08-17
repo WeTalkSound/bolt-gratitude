@@ -377,7 +377,10 @@ export default function Home() {
     let [category, quoteIndex] = gratitude.split('&')
     return (
     <Layout middle>
-      <h1>You are <span className="primary-text">"{GratitudeQuotes[category][quoteIndex]}"</span></h1>
+      <h1>
+        You are <br/>
+        <span className="primary-text font-weight-bold">"{GratitudeQuotes[category][quoteIndex]}"</span>
+      </h1>
       <p>
         Upload a picture to download your result. <br/>
         Share on your social media page for the chance to win a brand new iPhone 11
