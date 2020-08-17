@@ -71,7 +71,7 @@ export default function Home() {
             iconCanvas.height = height
             iconCanvas.getContext('2d').drawImage(icon, 0, 0, width, height)
 
-            canvas.getContext('2d').drawImage(iconCanvas, image.width/20, image.height - (image.height/20))
+            canvas.getContext('2d').drawImage(iconCanvas, image.width/20, image.height - (image.height/20) - 10)
             
             canvas.toBlob(blob => {
               console.log("To Blob")
