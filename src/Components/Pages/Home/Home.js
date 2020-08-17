@@ -1,4 +1,5 @@
 import React, { useState, useLayoutEffect } from 'react'
+import { saveAs } from 'file-saver';
 import Button from '../../Utilities/Button/Button'
 
 export default function Home() {
@@ -140,6 +141,10 @@ export default function Home() {
       setGratitude(`${category}&${Math.floor(Math.random() * GratitudeQuotes[category].length)}`)
       setStatus("IMAGE")
     }
+  }
+
+  const saveImage = () => {
+    saveAs(image, "grateful-for-every-mile.png")
   }
 
   const GratitudeQuotes = {
@@ -421,6 +426,7 @@ export default function Home() {
       <div className="col-12 mb-3 text-center">
         <img className="img-fluid" src={image} alt="Your Gratitude" />
       </div>
+      <button className="btn btn-primary" onClick={saveImage}>Download</button>
       <button className="btn btn-primary" onClick={(e) => setStatus("IMAGE")}>Back</button>
     </Layout>
   )
