@@ -1,5 +1,4 @@
 import React, { useState, useLayoutEffect } from 'react'
-import Cropper from 'react-easy-crop'
 import Button from '../../Utilities/Button/Button'
 
 export default function Home() {
@@ -8,9 +7,6 @@ export default function Home() {
   const [ image,setImage ] = useState("")
   const [ file,setFile ] = useState(new Blob())
   const [ gratitude,setGratitude ] = useState("")
-  const [ crop, setCrop ] = useState({ x: 0, y: 0 })
-  const [ cropSetter, setCropSetter ] = useState(() => {return 1})
-  const [ croppedAreaPixels,setCroppedAreaPixels ] = useState({width: 0, height: 0, x: 0, y: 0})
 
   const submit = () => {
     console.log("File triggered")
@@ -144,49 +140,6 @@ export default function Home() {
       setGratitude(`${category}&${Math.floor(Math.random() * GratitudeQuotes[category].length)}`)
       setStatus("IMAGE")
     }
-  }
-
-  const onCropChange = (crop) => {
-    console.log("Change Crop!")
-    setCrop( crop )
-  }
-
-  const onCropComplete = (croppedArea, croppedAreaPixels) => {
-    console.log(croppedArea, croppedAreaPixels)
-    setCroppedAreaPixels( croppedAreaPixels )
-  }
-
-  const onZoomChange = (zoom) => {
-    this.setState({ zoom })
-  }
-
-  const showCroppedImage = () => {
-    let imageToCrop = new Image()
-    imageToCrop.src = image
-
-    const canvas = document.createElement('canvas')
-    canvas.width = croppedAreaPixels.width
-    canvas.height = croppedAreaPixels.height
-    canvas.getContext('2d').drawImage(
-      imageToCrop,
-      croppedAreaPixels.x,
-      croppedAreaPixels.y,
-      croppedAreaPixels.width,
-      croppedAreaPixels.height,
-      0,
-      0,
-      croppedAreaPixels.width,
-      croppedAreaPixels.height
-    )
-    
-    canvas.toBlob(blob => {
-      console.log("To Blob")
-      console.log(blob)
-      setFile(blob)
-      setStatus("LOADED")
-    })
-
-
   }
 
   const GratitudeQuotes = {
