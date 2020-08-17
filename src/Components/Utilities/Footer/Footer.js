@@ -1,7 +1,7 @@
 import React from 'react'
 import appStoreImg from "./app-store.png"
 import playStoreImg from "./play-store.png"
-import homeImage from './home-image.png'
+// import homeImage from './home-image.png'
 import homeImageMobile from './home-image.old.png'
 
 export default function Footer() {
