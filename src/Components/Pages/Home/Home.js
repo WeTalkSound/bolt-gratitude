@@ -35,9 +35,26 @@ export default function Home() {
         return res.blob()
       })
       .then(images => {
+
+        let image = new Image()
+
         let imageUrl = (URL.createObjectURL(images))
-        setImage(imageUrl)
-        setStatus("LOADED")
+        image.src = imageUrl
+
+        image.onload = () => {
+          let canvas = document.createElement('canvas')
+          canvas.width = image.width
+          canvas.height = image.height
+          canvas.getContext('2d').fill()
+          canvas.getContext('2d').drawImage(image, 0, 0)
+
+          canvas.toBlob(blob => {
+            console.log("To Blob")
+            console.log(blob)
+            setImage(URL.createObjectURL(blob))
+            setStatus("LOADED")
+          })
+        }
       })
   }
 
