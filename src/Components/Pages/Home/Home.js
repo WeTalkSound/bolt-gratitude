@@ -1,6 +1,7 @@
 import React, { useState, useLayoutEffect } from 'react'
 import { saveAs } from 'file-saver';
 import Button from '../../Utilities/Button/Button'
+import bolt_logo from './bolt_logo_light.png'
 
 export default function Home() {
   const [ status,setStatus ] = useState("INITIAL")
@@ -51,8 +52,9 @@ export default function Home() {
           canvas.getContext('2d').drawImage(image, 0, 0)
 
           let icon = new Image()
-          icon.src = "http://services.etin.space/bolt-campaign/api/gratitude/logo.php"
-          icon.crossOrigin = "anonymous"
+          // icon.src = "http://services.etin.space/bolt-campaign/api/gratitude/logo.php"
+          icon.src = bolt_logo
+          // icon.crossOrigin = "anonymous"
 
           icon.onload = () => {
             let 
