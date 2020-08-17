@@ -67,12 +67,17 @@ a:hover a:active {
   margin-bottom: 12px;
   margin-right: 15px;
   cursor: pointer;
-  font-size: 10px;
   font-weight: 700;
   -webkit-user-select: none;
   user-select: none;
   background: var(--primary-color);
   border-radius: 30px;
+}
+
+@media (max-width: 425px) {
+  .checkbtn {
+    font-size: 10px;
+  }
 }
 
 .checkbtn.bg-primary-light {
@@ -238,7 +243,7 @@ li {
 
 img.homeimage {
   position: fixed;
-  bottom: 50px;
+  bottom: 35px;
   margin: 0 auto;
   left: 50%;
   transform: translateX(-50%);
