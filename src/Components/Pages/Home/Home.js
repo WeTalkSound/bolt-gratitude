@@ -72,7 +72,7 @@ export default function Home() {
             iconCanvas.height = height
             iconCanvas.getContext('2d').drawImage(icon, 0, 0, width, height)
 
-            canvas.getContext('2d').drawImage(iconCanvas, image.width/20, image.height * 0.75)
+            canvas.getContext('2d').drawImage(iconCanvas, image.width/20, image.height - (image.height/10))
             
             canvas.toBlob(blob => {
               console.log("To Blob")
@@ -456,9 +456,10 @@ export default function Home() {
     case "UPLOADING":
       content = (
         <Layout middle>
-          <h2 className="animate__animated animate__flipInX">
-            Loading, Please Wait...
-          </h2>
+          <h4 className="animate__animated animate__flipInX">
+            We are generating your image. <br />
+            Please Wait...
+          </h4>
         </Layout>
       )
       break;
