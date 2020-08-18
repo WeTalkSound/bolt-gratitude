@@ -147,7 +147,7 @@ export default function Home() {
   }
 
   const saveImage = () => {
-    saveAs(image, "grateful-for-every-mile.png")
+    saveAs(image, `grateful-for-every-mile-${Date.now().toString(16)}.png`)
   }
 
   const GratitudeQuotes = {
