@@ -313,7 +313,8 @@ export default function Home() {
 
   const GratitudeSelector = () => (
     <Layout middle>
-      <h1 className="font-weight-bold">What are you most grateful for?</h1>
+      <h1 className="font-weight-bold">Tell us what you're most grateful for</h1>
+      <h4>to unlock your Gratitude poster</h4>
       <div className="form-group">
         
         <label className="checkbtn bg-primary-light">Life &amp; Health
@@ -347,7 +348,6 @@ export default function Home() {
           <span className="checkmark"></span>
         </label>
       </div>
-      <p>{error}</p>
     </Layout>
   )
 
