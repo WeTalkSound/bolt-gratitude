@@ -1,14 +1,26 @@
-import React, { useState, useLayoutEffect } from 'react'
+import React, { useState, useLayoutEffect, useEffect } from 'react'
 import { saveAs } from 'file-saver';
 import Button from '../../Utilities/Button/Button'
 import bolt_logo from './bolt_logo_light.png'
 
 export default function Home() {
+  const [ geo,setGeo ] = useState({name: "Uche", hashtag: "NG"})
   const [ status,setStatus ] = useState("INITIAL")
   const [ error,setError ] = useState("")
   const [ image,setImage ] = useState("")
   const [ file,setFile ] = useState(new Blob())
   const [ gratitude,setGratitude ] = useState("")
+
+  useEffect(() => {
+    fetch(`https://services.etin.space/bolt-campaign/api/gratitude/location.php`, {
+      method: 'GET'
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+        setGeo(data)
+      })
+  }, [])
 
   const submit = () => {
     console.log("File triggered")
@@ -342,7 +354,7 @@ export default function Home() {
           <input type="checkbox" name="Growth" onChange={btnChecked}  />
           <span className="checkmark"></span>
         </label>
-        <label className="checkbtn">Uche from Bolt
+        <label className="checkbtn">{geo.name} from Bolt
           <input type="checkbox" name="Uche" onChange={btnChecked}  />
           <span className="checkmark"></span>
         </label>
@@ -384,7 +396,7 @@ export default function Home() {
     <Layout middle>
       <h1>
         You are <br/>
-        <span className="primary-text font-weight-bold">"{GratitudeQuotes[category][quoteIndex]}"</span>
+        <span className="primary-text font-weight-bold">"{GratitudeQuotes[category][quoteIndex].replace('Uche', geo.name)}"</span>
       </h1>
       <p>
         Upload a picture to download your result. <br/>
