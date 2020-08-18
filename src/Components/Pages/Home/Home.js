@@ -133,6 +133,7 @@ export default function Home() {
     }
     else {
       setError("Please upload an image.")
+      console.log(error)
       return
     }
   }
