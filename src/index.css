@@ -250,7 +250,8 @@ li {
 
 img.homeimage {
   position: fixed;
-  bottom: 35px;
+  z-index: -1;
+  bottom: 70px;
   margin: 0 auto;
   left: 50%;
   transform: translateX(-50%);
