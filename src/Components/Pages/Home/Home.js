@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useEffect } from 'react'
+import React, { useState, useLayoutEffect } from 'react'
 import { saveAs } from 'file-saver';
 import Button from '../../Utilities/Button/Button'
 import bolt_logo from './bolt_logo_light.png'
@@ -11,13 +11,14 @@ export default function Home() {
   const [ file,setFile ] = useState(new Blob())
   const [ gratitude,setGratitude ] = useState("")
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     fetch(`https://services.etin.space/bolt-campaign/api/gratitude/location.php`, {
       method: 'GET'
     })
       .then(res => res.json())
       .then(data => {
         console.log(data)
+        setStatus("SELECT")
         setGeo(data)
       })
   }, [])
@@ -455,6 +456,17 @@ export default function Home() {
 
   switch (status) {
     case "INITIAL":
+      content = (
+        <Layout middle>
+          <h4 className="animate__animated animate__flipInX">
+            Welcome! <br />
+            Please Wait...
+          </h4>
+        </Layout>
+      )
+      break;
+
+    case "SELECT":
       content = <GratitudeSelector />
       break;
     
