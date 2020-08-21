@@ -411,7 +411,7 @@ export default function Home() {
           </label>
         </Button>
         <input style={{display: "none", opacity: 0}} type='file' id='single-image' onChange={onUpload} /> 
-        <button className="btn btn-primary" onClick={(e) => setStatus("INITIAL")}>Back</button>
+        <button className="btn btn-primary" onClick={(e) => setStatus("SELECT")}>Back</button>
       </div>
     </Layout>
     )
