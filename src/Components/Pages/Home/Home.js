@@ -2,6 +2,7 @@ import React, { useState, useLayoutEffect } from 'react'
 import { saveAs } from 'file-saver';
 import Button from '../../Utilities/Button/Button'
 import bolt_logo from './bolt_logo_light.png'
+import CropImage from './CropImage';
 
 export default function Home() {
   const [ geo,setGeo ] = useState({name: "Uche", hashtag: "NG"})
@@ -10,6 +11,7 @@ export default function Home() {
   const [ image,setImage ] = useState("")
   const [ file,setFile ] = useState(new Blob())
   const [ gratitude,setGratitude ] = useState("")
+  const [ makeCrop,setMakeCrop ] = useState(false)
 
   useLayoutEffect(() => {
     fetch(`https://services.etin.space/bolt-campaign/api/gratitude/location.php`, {
@@ -136,8 +138,8 @@ export default function Home() {
 
           canvas.toBlob(blob => {
             setImage(URL.createObjectURL(blob))
-            // setStatus("CROP")
-            setFile(blob)
+            setStatus("CROP")
+            // setFile(blob)
           })
         }
         image.src = readerEvent.target.result;
@@ -419,25 +421,7 @@ export default function Home() {
 
   const GratitudeImageCrop = () => (
     <Layout>
-      <div className="crop-container">
-        {/* <Cropper
-          image={image}
-          crop={crop}
-          // zoom={1}
-          aspect={1}
-          // restrictPosition={true}
-          // zoomWithScroll={false}
-          // onCropChange={setCrop}
-          onCropChange={cropSetter}
-          // onMediaLoaded={(x) => { setCropSetter(setCrop) }}
-          // onCropComplete={onCropComplete}
-          // onZoomChange={onZoomChange}
-        /> */}
-      </div>
-      <div className="col-12 mb-3 text-center">
-        {/* <button className="btn btn-primary" onClick={ showCroppedImage }>Crop</button> */}
-        <button className="btn btn-primary" onClick={(e) => setStatus("SLIDER")}>Back</button>
-      </div>
+      <CropImage src={image} setFile={setFile} makeCrop={makeCrop} goBack={setStatus} />
     </Layout>
   )
 
@@ -448,7 +432,7 @@ export default function Home() {
         <img className="img-fluid" src={image} alt="Your Gratitude" />
       </div>
       <button className="btn btn-primary" onClick={saveImage}>Download</button>
-      <button className="btn btn-primary" onClick={(e) => setStatus("IMAGE")}>Back</button>
+      <button className="btn btn-primary" onClick={(e) => {setStatus("IMAGE"); setMakeCrop(false);}}>Back</button>
     </Layout>
   )
 
